@@ -1,0 +1,140 @@
+<!--pages/family/family.wxml-->
+<!-- <text>pages/family/family.wxml</text> -->
+<view class='main' animation="{{animationData}}" style="opacity:0">
+  <!-- 进度 -->
+  <view class='progressBox' wx:if="{{!newProgressShow}}">
+    <view class='bg_ball_Box'>
+      <view class='bgLineBox'>
+        <view class="bgLineItem {{item.status?'active':''}}" wx:if="{{index===0 || item.pageType > ptype?false:true}}" wx:key="item.pageName" wx:for="{{progressData}}"></view>
+      </view>
+      <view class='ballBox'>
+        <view class="ballItem {{item.status?'active':''}}" wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" wx:key="item.pageName" bindtap="ballClick" wx:for="{{progressData}}">
+          <view class="ballDot {{item.current?'active':''}}"></view>
+        </view>
+      </view>
+      <view class='ballItemTextBox'>
+        <view class='ballText' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick" wx:key="item.pageName" wx:for="{{progressData}}">{{item.proName}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 新的进度条 -->
+  <view class='newProgress' wx:if="{{newProgressShow}}">
+    <swiper class='myswiper' display-multiple-items="{{swiperDisNum}}" current="{{crtSwpIndex}}"
+      indicator-dots="{{indicatorDots}}" circular="{{circular}}" vertical="{{vertical}}">
+      <block wx:for="{{progressData}}" wx:key="{{item.pageName}}" wx:if="{{item.pageType <= ptype?true:false}}">
+        <swiper-item class="swiperItem">
+
+          <view class='bgLineBox2'>
+            <view class="bgLineItem2 {{item.status?'active':''}}"></view>
+          </view>
+
+          <view class="ballItem2 {{item.status?'active':''}}" data-pagename="{{item.pageName}}" bindtap="ballClick">
+            <view class="ballDot {{item.current?'active':''}}"></view>
+          </view>
+
+          <view class='ballText2' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick">{{item.proName}}</view>
+          <!-- <view>{{item.cnt}}</view> -->
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 新的进度条结束 -->
+  <!--  -->
+
+  <view class='logoBox'>
+    <image class='logo' src="{{imgBaseUrl}}/images/bahologo.png" mode='widthFix'></image>
+  </view>
+
+  <view class='content'>
+    <form bindsubmit="formSubmit">
+      <view class='itemBox'>
+
+        <!--教育经历 1  -->
+          <view class="{{'eduPro ' + item.iniclass}}" wx:for="{{jobList}}" wx:key="{{item.id}}"> 
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit schoolTit'>姓名</view>
+              <view class='eduProItemCntVal schoolVal'>
+                <input class='schoolIptVal' name="{{item.formMemberName}}" disabled="{{item.disabled}}" value="{{item.name}}" data-key="{{index}}" bindinput='nameInput' placeholder='请输入' />
+              </view>
+              <view class='xiugai' wx:if="{{item.iniResetShow}}">
+                <view class='xiugaiCnt' wx:if="{{item.iniResetFlagDef}}" data-key="{{index}}" bindtap='proReset'>修改</view>
+                <view class='xiugaiCnt' wx:if="{{!item.iniResetFlagDef}}">
+                  <text class='save' data-key="{{index}}" bindtap='saveClick'>保存 </text>
+                  <text class='cancel' data-key="{{index}}" bindtap='cancelClick'> 取消</text>
+                </view> 
+              </view>
+            </view>
+          </view>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntLine'>
+                <view class='eduProItemCntTit line'>亲属关系</view>
+                <view class='eduProItemCntVal'>
+                   <input class='eduipt' name="{{item.formRelationalName}}" disabled="{{item.disabled}}" value="{{item.relational}}" data-key="{{index}}" bindinput='relationalInput' placeholder='请输入' /> 
+                </view>
+              </view>
+              <view class='eduProItemCntLine'>
+                <view class='eduProItemCntTit line'>联系电话</view>
+                <view class='eduProItemCntVal'>
+                   <input class='eduipt' name="{{item.formMobileName}}" disabled="{{item.disabled}}" value="{{item.mobile}}" data-key="{{index}}" type='digit' maxlength="11" bindinput='mobileInput' placeholder='请输入' /> 
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntLine'>
+                <view class='eduProItemCntTit line'>工作单位</view>
+                <view class='eduProItemCntVal'>
+                   <input class='eduipt' name="{{item.formUnitsName}}" disabled="{{item.disabled}}" value="{{item.jobUnits}}" data-key="{{index}}" bindinput='unitsInput' placeholder='请输入' /> 
+                </view>
+              </view>
+              <!-- <view class='eduProItemCntLine'>
+                <view class='eduProItemCntTit line'>职务名称</view>
+                <view class='eduProItemCntVal'>
+                   <input class='eduipt' name="{{item.formPositionName}}" disabled="{{item.disabled}}" value="{{item.position}}" data-key="{{index}}" bindinput='positionInput' placeholder='请输入' /> 
+                </view>
+              </view> -->
+            </view>
+          </view>
+
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntLine'>
+                <view class='eduProItemCntTit line'>职务名称</view>
+                <view class='eduProItemCntVal'>
+                   <input class='eduipt' name="{{item.formPositionName}}" disabled="{{item.disabled}}" value="{{item.position}}" data-key="{{index}}" bindinput='positionInput' placeholder='请输入' /> 
+                </view>
+              </view>
+            </view>
+          </view>
+
+        </view>
+<!--wx:if="{{addBtnShow}}"  -->
+        <view class='addBtnBox' wx:if="{{addBtnShow}}" bindtap='addpro'><image class='addBtn' src="{{imgBaseUrl}}/images/addbtn.png" mode='widthFix'></image></view>
+      </view>
+
+      <view class='subBtnBox'><button class='subBtn' disabled="{{subDisabled}}" formType="submit">保存家庭信息</button></view>
+    </form>
+  </view>
+
+
+</view>
+
+
+<!-- <view class='tabbar'>
+  <view class='tabbarItem' data-linkpage="toindex" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/indexIcon.png"></image>
+    </view>
+    <view class='tabbarText'>首页</view>
+  </view>
+  <view class='tabbarItem' data-linkpage="tomine" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/mine.png"></image>
+    </view>
+    <view class='tabbarText'>我的</view>
+  </view>
+</view> -->

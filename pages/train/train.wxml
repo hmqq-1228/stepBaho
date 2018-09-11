@@ -1,0 +1,131 @@
+<!--pages/train/train.wxml-->
+<!-- <text>pages/train/train.wxml</text> -->
+<view class='main' animation="{{animationData}}" style="opacity:0">
+  <!-- 进度 -->
+  <view class='progressBox'>
+    <view class='bg_ball_Box'>
+      <view class='bgLineBox'>
+        <view class="bgLineItem {{item.status?'active':''}}" wx:if="{{index===0 || item.pageType > ptype?false:true}}" wx:key="item.pageName" wx:for="{{progressData}}"></view>
+      </view>
+      <view class='ballBox'>
+        <view class="ballItem {{item.status?'active':''}}" wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" wx:key="item.pageName" bindtap="ballClick" wx:for="{{progressData}}">
+          <view class="ballDot {{item.current?'active':''}}"></view>
+        </view>
+      </view>
+      <view class='ballItemTextBox'>
+        <view class='ballText' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick" wx:key="item.pageName" wx:for="{{progressData}}">{{item.proName}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 新的进度条 -->
+  <view class='newProgress' wx:if="{{newProgressShow}}">
+    <swiper class='myswiper' display-multiple-items="{{swiperDisNum}}" current="{{crtSwpIndex}}"
+      indicator-dots="{{indicatorDots}}" circular="{{circular}}" vertical="{{vertical}}">
+      <block wx:for="{{progressData}}" wx:key="{{item.pageName}}" wx:if="{{item.pageType <= ptype?true:false}}">
+        <swiper-item class="swiperItem">
+
+          <view class='bgLineBox2'>
+            <view class="bgLineItem2 {{item.status?'active':''}}"></view>
+          </view>
+
+          <view class="ballItem2 {{item.status?'active':''}}" data-pagename="{{item.pageName}}" bindtap="ballClick">
+            <view class="ballDot {{item.current?'active':''}}"></view>
+          </view>
+
+          <view class='ballText2' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick">{{item.proName}}</view>
+          <!-- <view>{{item.cnt}}</view> -->
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 新的进度条结束 -->
+
+  <view class='logoBox'>
+    <image class='logo' src="{{imgBaseUrl}}/images/bahologo.png" mode='widthFix'></image>
+  </view>
+
+  <view class='content'>
+    <form bindsubmit="formSubmit">
+      <view class='itemBox'>
+
+        <!--教育经历 1  -->
+        <view class="{{'eduPro ' + item.iniclass}}" wx:for="{{jobList}}" wx:key="{{item.id}}">
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit schoolTit'>培训单位</view>
+              <view class='eduProItemCntVal schoolVal'>
+                <input class='schoolIptVal' name="{{item.formInstitutionsName}}" disabled="{{item.disabled}}" value="{{item.institutions}}" data-key="{{index}}" bindinput='unitsNameInput' placeholder='请输入' />
+              </view>
+              <view class='xiugai' wx:if="{{item.iniResetShow}}">
+                <view class='xiugaiCnt' wx:if="{{item.iniResetFlagDef}}" data-key="{{index}}" bindtap='proReset'>修改</view>
+                <view class='xiugaiCnt' wx:if="{{!item.iniResetFlagDef}}">
+                  <text class='save' data-key="{{index}}" bindtap='saveClick'>保存 </text>
+                  <text class='cancel' data-key="{{index}}" bindtap='cancelClick'> 取消</text>
+                </view> 
+              </view>
+            </view>
+          </view>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntLine'>
+                <view class='eduProItemCntTit line'>开始时间</view>
+                <view class='eduProItemCntVal'>
+                  <picker mode="date" value="{{item.startTime}}" name="{{item.formStartTimeName}}" data-key="{{index}}" start="1970-01-01" end="2020-01-01" bindchange="bindStartDateChange" disabled="{{item.disabled}}">
+                    <view class="picker">{{item.startTime}}</view>
+                  </picker>
+                </view>
+              </view>
+              <view class='eduProItemCntLine'>
+                <view class='eduProItemCntTit line'>结束时间</view>
+                <view class='eduProItemCntVal'>
+                  <picker mode="date" value="{{item.endTime}}" name="{{item.formEndTimeName}}" data-key="{{index}}" start="1970-01-01" end="2020-01-01" bindchange="bindEndDateChange" disabled="{{item.disabled}}">
+                    <view class="picker">{{item.endTime}}</view>
+                  </picker>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit'>培训技能</view>
+              <view class='eduProItemCntVal'>
+                <input class='eduipt' name="{{item.formCoursesName}}" disabled="{{item.disabled}}" value="{{item.courses}}" data-key="{{index}}" bindinput='positionInput' placeholder='所培训的技能' />
+              </view>
+            </view>
+          </view>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit'>培训地点</view>
+              <view class='eduProItemCntVal'>
+                <input class='eduipt' name="{{item.formAddressName}}" disabled="{{item.disabled}}" value="{{item.address}}" data-key="{{index}}" bindinput='referencesInput' placeholder='您的培训地点' />
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class='addBtnBox' bindtap='addpro' wx:if="{{addBtnShow}}">
+          <image class='addBtn' src="{{imgBaseUrl}}/images/addbtn.png" mode='widthFix'></image>
+        </view>
+      </view>
+
+      <view class='subBtnBox'><button class='subBtn' disabled="{{subDisabled}}" formType="submit">保存培训信息</button></view>
+    </form>
+  </view>
+
+
+</view>
+
+<!-- <view class='tabbar'>
+  <view class='tabbarItem' data-linkpage="toindex" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/indexIcon.png"></image>
+    </view>
+    <view class='tabbarText'>首页</view>
+  </view>
+  <view class='tabbarItem' data-linkpage="tomine" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/mine.png"></image>
+    </view>
+    <view class='tabbarText'>我的</view>
+  </view>
+</view> -->

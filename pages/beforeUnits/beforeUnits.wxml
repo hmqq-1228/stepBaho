@@ -1,0 +1,151 @@
+<!--pages/beforeUnits/beforeUnits.wxml-->
+<view class='main' animation="{{animationData}}" style="opacity:0">
+  <!-- 进度 -->
+  <view class='progressBox' wx:if="{{!newProgressShow}}">
+    <view class='bg_ball_Box'>
+      <view class='bgLineBox'>
+        <view class="bgLineItem {{item.status?'active':''}}" wx:if="{{index===0 || item.pageType > ptype?false:true}}" wx:key="item.pageName" wx:for="{{progressData}}"></view>
+      </view>
+      <view class='ballBox'>
+        <view class="ballItem {{item.status?'active':''}}" wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" wx:key="item.pageName" bindtap="ballClick" wx:for="{{progressData}}">
+          <view class="ballDot {{item.current?'active':''}}"></view>
+        </view>
+      </view>
+      <view class='ballItemTextBox'>
+        <view class='ballText' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick" wx:key="item.pageName" wx:for="{{progressData}}">{{item.proName}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 新的进度条 -->
+  <view class='newProgress' wx:if="{{newProgressShow}}">
+    <swiper class='myswiper' display-multiple-items="{{swiperDisNum}}" current="{{crtSwpIndex}}"
+      indicator-dots="{{indicatorDots}}" circular="{{circular}}" vertical="{{vertical}}">
+      <block wx:for="{{progressData}}" wx:key="{{item.pageName}}" wx:if="{{item.pageType <= ptype?true:false}}">
+        <swiper-item class="swiperItem">
+
+          <view class='bgLineBox2'>
+            <view class="bgLineItem2 {{item.status?'active':''}}"></view>
+          </view>
+
+          <view class="ballItem2 {{item.status?'active':''}}" data-pagename="{{item.pageName}}" bindtap="ballClick">
+            <view class="ballDot {{item.current?'active':''}}"></view>
+          </view>
+
+          <view class='ballText2' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick">{{item.proName}}</view>
+          <!-- <view>{{item.cnt}}</view> -->
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 新的进度条结束 --> 
+
+  <view class='logoBox'>
+    <image class='logo' src="{{imgBaseUrl}}/images/bahologo.png" mode='widthFix'></image>
+  </view>
+
+  <view class='content'>
+    <form bindsubmit="formSubmit">
+      <view class='itemBox'>
+
+        <!--健康状况  -->
+        <view class='eduPro'>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt lizhi'>
+              <view class='eduProItemCntTit'>离职日期</view>
+              <view class='eduProItemCntVal'>
+
+                <picker mode="date" value="{{leaveDate}}" name="birth" start="1970-01-01" end="2100-01-01" bindchange="bindDateChange" disabled="{{disabled}}">
+                  <view class="picker">{{leaveDate}}</view>
+                </picker>
+
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!--离职原因  -->
+        <view class='eduPro'>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt lizhi'>
+              <view class='eduProItemCntTit'>离职原因</view>
+              <view class='eduProItemCntVal'>
+                <input class='eduipt' name="leaveReasion" value="{{leaveReasion}}" bindinput='leaveReasionChange' placeholder='请填写离职原因' disabled="{{disabled}}" />
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!--健康状况  -->
+        <view class='eduPro'>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit'>是否与前用人单位约定了保密协议与竞业限制条款?</view>
+              <view class='eduProItemCntVal'>
+                <radio-group class="radio-group" bindchange="confidentialityChange">
+                  <label class="radio" wx:for="{{confidentiality}}">
+                    <radio class='myRadio' value="{{item.name}}" name="confidentiality" disabled="{{disabled}}" checked="{{item.checked}}"/>{{item.value}}
+                  </label>
+                </radio-group>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!--健康状况  -->
+        <view class='eduPro'>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit'>是否与前用人单位有未尽的法律事宜?</view>
+              <view class='eduProItemCntVal'>
+                <radio-group class="radio-group" bindchange="legalLiabilityChange">
+                  <label class="radio" wx:for="{{legalLiability}}">
+                    <radio class='myRadio' value="{{item.name}}" name="legalLiability" disabled="{{disabled}}" checked="{{item.checked}}"/>{{item.value}}
+                  </label>
+                </radio-group>
+              </view>
+
+            </view>
+          </view>
+
+        </view>
+
+        <!--健康状况  -->
+        <view class='eduPro'>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit'>是否曾经或正在追究与承担过刑事责任?</view>
+              <view class='eduProItemCntVal'>
+                <radio-group class="radio-group" bindchange="criminalLiabilityChange">
+                  <label class="radio" wx:for="{{criminalLiability}}">
+                    <radio class='myRadio' value="{{item.name}}" name="criminalLiability" disabled="{{disabled}}" checked="{{item.checked}}"/>{{item.value}}
+                  </label>
+                </radio-group>
+              </view>
+            </view>
+          </view>
+        </view>
+
+      </view>
+
+      <view class='subBtnBox editBtnBox' wx:if="{{disabled}}"><button class='subBtn editBtn' bindtap='editClick'>修改前用人单位信息</button></view>
+      <view class='subBtnBox' wx:if="{{!disabled}}"><button class='subBtn' formType="submit">保存前用人单位信息</button></view>
+    </form>
+  </view>
+
+
+</view>
+
+<!-- <view class='tabbar'>
+  <view class='tabbarItem' data-linkpage="toindex" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/indexIcon.png"></image>
+    </view>
+    <view class='tabbarText'>首页</view>
+  </view>
+  <view class='tabbarItem' data-linkpage="tomine" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/mine.png"></image>
+    </view>
+    <view class='tabbarText'>我的</view>
+  </view>
+</view> -->

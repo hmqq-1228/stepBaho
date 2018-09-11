@@ -1,0 +1,113 @@
+/* pages/test/test.wxss */
+
+.testview{
+  background-color: #eee;
+  padding: 20rpx 0;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
+.hoverClass{
+  background-color: #ddd;
+}
+
+.scrollbox{
+  width: 450rpx;
+  height: 300rpx;
+  margin: 0 auto;
+  border: 1rpx solid #ddd;
+}
+.viewCnt{
+  width: 800rpx;
+  height: 600rpx;
+  background-color: #eee;
+}
+
+.movearea{
+  width: 500rpx;
+  height: 500rpx;
+  background-color: #eee;
+  border: 1rpx solid #ddd;
+  margin: 0 auto;
+  margin-top: 20rpx;
+}
+.moveview{
+  width: 100rpx;
+  height: 100rpx;
+  background-color: #ccc;
+  border-radius: 50rpx;
+}
+
+
+
+
+.weui-cells{
+  margin-top: 80rpx;
+  text-align: left;
+}
+.weui-label{
+  width: 5em;
+}
+
+.page-body-button {
+  margin-bottom: 30rpx;
+}
+
+/* 点赞 心形动画 demo */
+.myheartBox{
+	margin-left:200rpx;
+	margin-top:400rpx;
+	position:relative;
+}
+.myheart{
+	width: 40rpx;
+	height:40rpx;
+	/* position:relative;
+	top: 0;
+	left:0; */
+	opacity:1;
+	background:#f00;
+	transform: rotate(45deg);
+}
+.myheart:before,.myheart:after{
+content: '';
+position: absolute;
+width: inherit;
+height: inherit;
+background: #f00;
+border-radius: 50%;
+-webkit-border-radius: 50%;
+}
+.myheart:before{
+left: -20rpx;
+}
+.myheart:after{
+top: -20rpx;
+}
+
+.myheartGo{
+	width: 40rpx;
+	height:40rpx;
+	position:absolute;
+	top: 0;
+	left:0rpx;
+	opacity:1;
+	background:#f00;
+	transform: rotate(45deg);
+}
+.myheartGo:before,.myheartGo:after{
+content: '';
+position: absolute;
+width: inherit;
+height: inherit;
+background: #f00;
+border-radius: 50%;
+-webkit-border-radius: 50%;
+}
+.myheartGo:before{
+left: -20rpx;
+}
+.myheartGo:after{
+top: -20rpx;
+}

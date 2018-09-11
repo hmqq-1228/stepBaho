@@ -1,0 +1,160 @@
+<!--pages/healthStatus/healthStatus.wxml-->
+<view class='main' animation="{{animationData}}" style="opacity:0">
+  <!-- 进度 -->
+  <view class='progressBox' wx:if="{{!newProgressShow}}">
+    <view class='bg_ball_Box'>
+      <view class='bgLineBox'>
+        <view class="bgLineItem {{item.status?'active':''}}" wx:if="{{index===0 || item.pageType > ptype?false:true}}" wx:key="item.pageName" wx:for="{{progressData}}"></view>
+      </view>
+      <view class='ballBox'>
+        <view class="ballItem {{item.status?'active':''}}" wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" wx:key="item.pageName" bindtap="ballClick" wx:for="{{progressData}}">
+          <view class="ballDot {{item.current?'active':''}}"></view>
+        </view>
+      </view>
+      <view class='ballItemTextBox'>
+        <view class='ballText' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick" wx:key="item.pageName" wx:for="{{progressData}}">{{item.proName}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 新的进度条 -->
+  <view class='newProgress' wx:if="{{newProgressShow}}">
+    <swiper class='myswiper' display-multiple-items="{{swiperDisNum}}" current="{{crtSwpIndex}}"
+      indicator-dots="{{indicatorDots}}" circular="{{circular}}" vertical="{{vertical}}">
+      <block wx:for="{{progressData}}" wx:key="{{item.pageName}}" wx:if="{{item.pageType <= ptype?true:false}}">
+        <swiper-item class="swiperItem">
+
+          <view class='bgLineBox2'>
+            <view class="bgLineItem2 {{item.status?'active':''}}"></view>
+          </view>
+
+          <view class="ballItem2 {{item.status?'active':''}}" data-pagename="{{item.pageName}}" bindtap="ballClick">
+            <view class="ballDot {{item.current?'active':''}}"></view>
+          </view>
+
+          <view class='ballText2' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick">{{item.proName}}</view>
+          <!-- <view>{{item.cnt}}</view> -->
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 新的进度条结束 -->
+
+  <view class='logoBox'>
+    <image class='logo' src="{{imgBaseUrl}}/images/bahologo.png" mode='widthFix'></image>
+  </view>
+
+  <view class='content'>
+    <form bindsubmit="formSubmit">
+      <view class='itemBox'>
+
+        <!--健康状况  -->
+        <view class='eduPro'>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit'>是否曾被认定为工伤或职业病或持有残疾人证明?</view>
+              <view class='eduProItemCntVal'>
+                <radio-group class="radio-group" bindchange="gongShangChange">
+                  <label class="radio" wx:for="{{disability}}">
+                    <radio class='myRadio' value="{{item.name}}" disabled="{{disabled}}" checked="{{item.checked}}"/>{{item.value}}
+                  </label>
+                </radio-group>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!--健康状况  -->
+        <view class='eduPro'>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit'>是否被劳动能力鉴定委员会鉴定为具有伤残等级以及何级伤残?</view>
+              <view class='eduProItemCntVal'>
+                <radio-group class="radio-group" bindchange="shangCanChange">
+                  <label class="radio" wx:for="{{grades}}">
+                    <radio class='myRadio' value="{{item.name}}" disabled="{{disabled}}" checked="{{item.checked}}"/>{{item.value}}
+                  </label>
+                </radio-group>
+              </view>
+
+              <!-- <view class='eduProItemCntVal'>
+                <input class='eduipt' name="shangCanDegree" disabled="{{disabled}}" value="{{candidateInfo.specialty}}" placeholder='若选择是，请填写伤残级别' />
+              </view> -->
+
+            </view>
+          </view>
+
+        </view>
+
+        <!--健康状况  -->
+        <view class='eduPro'>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit'>是否从事过井下、高空、高温、特别繁重体力劳动以及有毒有害工种?</view>
+              <view class='eduProItemCntVal'>
+                <radio-group class="radio-group" bindchange="jingXiaChange">
+                  <label class="radio" wx:for="{{harmJob}}">
+                    <radio class='myRadio' value="{{item.name}}" disabled="{{disabled}}" checked="{{item.checked}}"/>{{item.value}}
+                  </label>
+                </radio-group>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!--健康状况  -->
+        <view class='eduPro'>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit'>是否有传染性疾病以及何疾病?</view>
+              <view class='eduProItemCntVal'>
+                <radio-group class="radio-group" bindchange="chuanRanChange">
+                  <label class="radio" wx:for="{{infectious}}">
+                    <radio class='myRadio' value="{{item.name}}" disabled="{{disabled}}" checked="{{item.checked}}"/>{{item.value}}
+                  </label>
+                </radio-group>
+              </view>
+
+              <!-- <view class='eduProItemCntVal'>
+                <input class='eduipt' name="chuanRan" disabled="{{disabled}}" value="{{candidateInfo.specialty}}" placeholder='若选择是，请填写何种疾病' />
+              </view> -->
+
+            </view>
+          </view>
+        </view>
+
+        <!--健康状况  -->
+        <view class='eduPro'>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit'>最近6个月内所接受的医学治疗与医学检查：</view>
+              <view class='eduProItemCntVal'>
+                <input class='eduipt' name="zhiLiao" disabled="{{disabled}}" value="{{healthStatus.medicalTest}}" placeholder='请输入' />
+              </view>
+            </view>
+          </view>
+        </view>
+
+      </view>
+
+      <view class='subBtnBox editBtnBox' wx:if="{{disabled}}"><button class='subBtn editBtn' bindtap='editClick'>修改个人健康信息</button></view>
+      <view class='subBtnBox' wx:if="{{!disabled}}"><button class='subBtn' formType="submit">保存个人健康信息</button></view>
+    </form>
+  </view>
+
+</view>
+
+<!-- <view class='tabbar'>
+  <view class='tabbarItem' data-linkpage="toindex" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/indexIcon.png"></image>
+    </view>
+    <view class='tabbarText'>首页</view>
+  </view>
+  <view class='tabbarItem' data-linkpage="tomine" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/mine.png"></image>
+    </view>
+    <view class='tabbarText'>我的</view>
+  </view>
+</view> -->

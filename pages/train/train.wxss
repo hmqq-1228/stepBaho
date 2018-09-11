@@ -1,0 +1,114 @@
+/* pages/train/train.wxss */
+Page{
+  background-color: #f8f8fa;
+}
+
+.main{
+
+}
+
+.logoBox{
+  width: 250rpx;
+  margin: 0 auto;
+  margin-top: 100rpx;
+  padding: 25rpx 0;
+}
+.logo{
+  width: 250rpx;
+}
+
+.content{
+  background-color: #fff;
+  padding-bottom: 50rpx;
+}
+.itemBox{
+  _padding: 30rpx 26rpx;
+}
+.eduPro{
+  padding: 10rpx 26rpx 30rpx 26rpx;
+}
+.eduProItem{
+  border-bottom: 1rpx solid #eee;
+}
+.eduProItemCnt{
+  color: #6a6968;
+  font-size: 28rpx;
+  padding: 20rpx;
+  display: flex;
+}
+.eduProItemCntLine{
+  display: flex;
+  width: 50%;
+}
+.eduipt{
+  font-size: 28rpx;
+}
+.eduProItemCntTit{
+  padding-top: 0rpx;
+  margin-right: 20rpx;
+}
+.eduProItemCntTit.line{
+  flex-shrink: 0;
+  width: 120rpx;
+}
+.xiugai{
+  flex-shrink: 0;
+  width: 110rpx;
+  text-align: right;
+  position: relative;
+}
+.xiugaiCnt{
+  position: absolute;
+  right: -20rpx;
+  top: 5rpx;
+}
+.eduProItemCntTit.schoolTit{
+  padding-top: 0rpx;
+  line-height: 40rpx;
+}
+.schoolTit,.schoolVal{
+  font-size: 36rpx;
+  color: #2c2b29;
+}
+.schoolTit{
+  flex-shrink: 0;
+  width: 150rpx;
+}
+.schoolIptVal{
+  line-height: 40rpx;
+  font-size: 36rpx;
+}
+
+.iniclass .schoolTit,.schoolVal{
+  color: #808080;
+}
+.iniclass .schoolVal{
+  color: #808080;
+}
+.iniclass .eduProItemCnt{
+  color: #A9A9A9;
+}
+.addclass .eduProItemCnt{
+  color: #6a6968;
+}
+.addclass .schoolTit,.schoolVal{
+  color: #2c2b29;
+}
+
+.addBtnBox,.addBtn{
+  width: 60rpx;
+  margin: 0 auto;
+}
+
+.subBtnBox{
+  padding: 0 26rpx 30rpx 26rpx;
+}
+.subBtn{
+  color: #fff;
+  margin-top: 30rpx;
+  background-color: #00a0ea;
+
+}
+
+
+

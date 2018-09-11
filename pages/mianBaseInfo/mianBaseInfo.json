@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "面试填表",
+    "usingComponents": {
+      "my-component": "../../components/footer/comp-footer"
+    }
+}

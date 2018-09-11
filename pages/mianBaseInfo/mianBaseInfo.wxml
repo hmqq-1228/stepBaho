@@ -1,0 +1,433 @@
+<!--pages/mianBaseInfo/mianBaseInfo.wxml-->
+<!-- 面试基本信息 -->
+<view class='main' animation="{{animationData}}" style="opacity:0">
+  <!-- 进度 -->
+  <view class='progressBox' wx:if="{{!newProgressShow}}">
+    <view class='bg_ball_Box'>
+      <view class='bgLineBox'>
+        <view class="bgLineItem {{item.status?'active':''}}" wx:if="{{index===0 || item.pageType > ptype?false:true}}" wx:key="item.pageName" wx:for="{{progressData}}"></view>
+      </view>
+      <view class='ballBox'>
+        <view class="ballItem {{item.status?'active':''}}" wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" wx:key="item.pageName" bindtap="ballClick" wx:for="{{progressData}}">
+          <view class="ballDot {{item.current?'active':''}}"></view>
+        </view>
+      </view>
+      <view class='ballItemTextBox'>
+        <view class='ballText' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick" wx:key="item.pageName" wx:for="{{progressData}}">{{item.proName}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 新的进度条 -->
+  <view class='newProgress' wx:if="{{newProgressShow}}">
+    <swiper class='myswiper' display-multiple-items="{{swiperDisNum}}" current="{{crtSwpIndex}}"
+      indicator-dots="{{indicatorDots}}" circular="{{circular}}" vertical="{{vertical}}">
+      <block wx:for="{{progressData}}" wx:key="{{item.pageName}}" wx:if="{{item.pageType <= ptype?true:false}}">
+        <swiper-item class="swiperItem">
+
+          <view class='bgLineBox2'>
+            <view class="bgLineItem2 {{item.status?'active':''}}"></view>
+          </view>
+
+          <view class="ballItem2 {{item.status?'active':''}}" data-pagename="{{item.pageName}}" bindtap="ballClick">
+            <view class="ballDot {{item.current?'active':''}}"></view>
+          </view>
+
+          <view class='ballText2' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick">{{item.proName}}</view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 新的进度条结束 -->
+
+  <!--  -->
+  <view class='logoBox' bindtap='testGetAppData'>
+    <image class='logo' src="{{imgBaseUrl}}/images/bahologo.png" mode='widthFix'></image>
+  </view>
+    <!--banner  -->
+  <view class='bannerBox'>
+    <image class='banner' src="{{imgBaseUrl}}/images/interviewBanner.png" mode='widthFix'></image>
+  </view>
+  <!--  -->
+
+  <view class='content'>
+    <view class='baseInfoBox'>
+      <form class='baseInfoForm' bindsubmit="formSubmit">
+
+        <view class="'formCnt '{{editState}}">
+
+          <view class='formCntItemWrap'>
+            <view class='formCntItem'>
+              <view class='mustBox'>
+                <view class='must'>*</view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>应聘职位</view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptBorder'>
+                  <input class='itemIptVal' name="jobname" data-name="position" disabled="{{disabled}}" type='text' 
+                  value="{{candidate.position?candidate.position:position}}" bindinput="bindKeyInput" placeholder='请填写应聘职位' />
+                </view>
+              </view>
+            </view>
+
+            <view class='formCntItem'>
+              <view class='mustBox'>
+                <view class='must'>*</view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>应聘来源</view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptBorder'>
+                  <picker bindchange="bindPickerSourseChange" name="jobfrom" disabled="{{disabled}}" 
+                    value="{{candidate.source?candidate.source:sourseArr[sourseIndex]}}" range="{{sourseArr}}">
+                    <view class="picker">{{candidate.source?candidate.source:sourseArr[sourseIndex]}}</view>
+                  </picker>
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <view class='bgfenge'>
+            <view class='bgfengeCnt'></view>
+          </view>
+
+          <view class='formCntItemWrap'>
+            <!--姓名项  -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'>*</view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <input class='itemIptVal' name="username" data-name="name" disabled="{{disabled}}" bindinput="bindKeyInput" 
+                  value="{{candidate.name?candidate.name:name}}" maxlength='20' type='text' placeholder='请输入您的姓名' />
+                </view>
+              </view>
+            </view>
+
+            <!--性别项  -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'>*</view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</text>
+                </view>
+              </view>
+              <view class='itemIptBox selectItem'>
+                <view class='itemIpt itemIptLine'>
+                  <picker bindchange="bindPickerChange" name="gender" disabled="{{disabled}}" 
+                    value="{{candidate.distinction?(candidate.distinction - 1):index}}" range="{{genderArr}}">
+                    <view class="picker">{{genderArr[candidate.distinction?(candidate.distinction - 1):index]}}</view>
+                  </picker>
+                </view>
+                <view class='selectIcon'><image class='arrowIcon' src="{{imgBaseUrl}}/images/errowRight.png" mode='widthFix'></image></view>
+              </view>
+            </view>
+
+            <!--身份证号码  -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'>*</view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">身份证号</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <!-- <input class='itemIptVal' name="usercard" data-name="identity" disabled="{{disabled}}" bindinput="bindKeyInput" bindblur="leaveResBlur" 
+                  type='idcard' value="{{candidate.identity?candidate.identity:''}}" maxlength="18" placeholder='请输入身份证号' /> -->
+
+                  <input wx:if="{{!identitySwitch}}" class='itemIptVal' name="identity" focus="{{identityFocus}}" data-name="identity" maxlength="18" 
+                  disabled="{{disabled}}" bindinput="bindKeyInput" bindblur="leaveResBlur" type='idcard' 
+                  value="{{candidate.identity?candidate.identity:identity}}" placeholder='您的身份证号码' />
+                  <view wx:if="{{identitySwitch}}" id='identity' bindtap='iptReplaceClick' class='iptReplace'>
+                  {{identity.length===0?'您的身份证号码':identity}}
+                  </view>
+                </view>
+              </view>
+            </view>
+
+            <!--手机号码  -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'>*</view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">手机号码</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <input wx:if="{{!mobileSwitch}}" class='itemIptVal' name="tel" focus="{{mobileFocus}}" data-name="mobile" maxlength="11" 
+                  disabled="{{disabled}}" bindinput="bindKeyInput" bindblur="leaveResBlur" type='digit' 
+                  value="{{candidate.mobile?candidate.mobile:mobile}}" placeholder='您的手机号码' />
+                  <view wx:if="{{mobileSwitch}}" id='mobile' bindtap='iptReplaceClick' class='iptReplace'>
+                  {{mobile.length===0?'您的手机号码':mobile}}
+                  </view>
+                </view>
+              </view>
+            </view>
+
+            <!--邮箱  -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'>*</view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <input wx:if="{{!emailSwitch}}" class='itemIptVal' name="email" focus="{{emailFocus}}" data-name="email" 
+                  disabled="{{disabled}}" bindinput="bindKeyInput" bindblur="leaveResBlur" type='text' 
+                  value="{{candidate.email?candidate.email:email}}" placeholder='您的邮箱' />
+                  <view wx:if="{{emailSwitch}}" id='email' bindtap='iptReplaceClick' class='iptReplace'>
+                  {{email.length===0?'您的邮箱':email}}
+                  </view>
+                </view>
+              </view>
+            </view>
+
+            <!--婚姻状况  -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'></view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">婚姻情况</text>
+                </view>
+              </view>
+              <view class='itemIptBox selectItem'>
+                <view class='itemIpt itemIptLine'>
+                  <picker bindchange="bindPickerMarryChange" disabled="{{disabled}}" 
+                  value="{{candidate.marriage?(candidate.marriage - 1):marryIndex}}" name="merry" range="{{marryArr}}">
+                    <view class="picker">{{marryArr[candidate.marriage?(candidate.marriage - 1):marryIndex]}}</view>
+                  </picker>
+                </view>
+                <view class='selectIcon'><image class='arrowIcon' src="{{imgBaseUrl}}/images/errowRight.png" mode='widthFix'></image></view>
+              </view>
+            </view>
+
+            <!-- 民族 -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'></view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <picker bindchange="bindPickerMinzuChange" name="minzu" disabled="{{disabled}}" 
+                  value="{{candidate.nationality?candidate.nationality:nationalityArr[nationalityIndex]}}" range="{{nationalityArr}}">
+                    <view class="picker">
+                      {{nationalityArr[nationalityIndex]}}
+                    </view>
+                  </picker>
+                </view>
+              </view>
+            </view>
+
+            <!-- 籍贯 -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'></view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">籍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贯</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <picker mode="region" bindchange="bindRegionChange" name="jiguan" disabled="{{disabled}}" value="{{region}}" custom-item="{{customItem}}">
+                    <view class="picker">{{region[0]}}, {{region[1]}}, {{region[2]}}</view>
+                  </picker>
+                </view>
+              </view>
+            </view>
+
+            <!-- 出生日期 -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'></view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">出生日期</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <picker mode="date" value="{{candidate.birthTime?candidate.birthTime:date}}" disabled="{{disabled}}" 
+                  name="birth" start="1970-01-01" end="2010-01-01" bindchange="bindDateChange">
+                    <view class="picker">{{candidate.birthTime?candidate.birthTime:date}}</view>
+                  </picker>
+                </view>
+              </view>
+            </view>
+
+            <!-- 到岗时间 -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'></view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">到岗时间</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <picker mode="date" value="{{candidate.reportTime?candidate.reportTime:entryDate}}" disabled="{{disabled}}" 
+                  name="entryTime" start="2018-06-20" end="2100-01-01" bindchange="bindEntryDateChange">
+                    <view class="picker">{{candidate.reportTime?candidate.reportTime:entryDate}}</view>
+                  </picker>
+                </view>
+              </view>
+            </view>
+
+            <!--现住址  -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'>*</view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">现&nbsp;&nbsp;住&nbsp;&nbsp;址</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <input wx:if="{{!nowAddressSwitch}}" class='itemIptVal' name="nowAddress" focus="{{nowAddressFocus}}" 
+                  data-name="nowAddress" disabled="{{disabled}}" bindinput="bindKeyInput" bindblur="leaveResBlur" type='text' 
+                  value="{{candidate.address?candidate.address:nowAddress}}" placeholder='您现在的住址' />
+                  <view wx:if="{{nowAddressSwitch}}" id='nowAddress' bindtap='iptReplaceClick' class='iptReplace'>
+                  {{nowAddress.length===0?'您现在的住址':nowAddress}}
+                  </view>
+                </view>
+              </view>
+            </view>
+
+            <!-- 过往薪资 -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'>*</view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">过往薪资</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <input wx:if="{{!lastPaySwitch}}" class='itemIptVal' name="lastmoney" focus="{{lastMoneyFocus}}" 
+                  data-name="beforePay" disabled="{{disabled}}" bindinput="bindKeyInput" bindblur="leaveResBlur" type='digit' 
+                  value="{{candidate.beforePay?candidate.beforePay:lastmoney}}" placeholder='您的过往薪资' />
+                  <view wx:if="{{lastPaySwitch}}" id='lastmoney' bindtap='iptReplaceClick' class='iptReplace'>
+                  {{lastmoney.length===0?'您的过往薪资':lastmoney}}</view>
+                </view>
+              </view>
+            </view>
+
+            <!--期望薪资  -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'>*</view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}" bindtap='testHopepay'>期望薪资</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <input wx:if="{{!hopePaySwitch}}" class='itemIptVal' name="hopemoney" focus="{{hopeMoneyFocus}}" 
+                  data-name="hopePay" disabled="{{disabled}}" bindinput="bindKeyInput" bindblur="leaveResBlur" type='digit' 
+                  value="{{candidate.hopePay?candidate.hopePay:hopemoney}}" placeholder='您的期望薪资' />
+                  <view wx:if="{{hopePaySwitch}}" id='hopemoney' bindtap='iptReplaceClick' class='iptReplace'>
+                  {{hopemoney.length===0?'您的期望薪资':hopemoney}}</view>
+                </view>
+              </view>
+            </view>
+
+            <!-- 离职原因 -->
+            <view class='formCntItem borderline'>
+              <view class='mustBox'>
+                <view class='must'>*</view>
+              </view>
+              <view class='itemTitleBox'>
+                <view class='itemTitle'>
+                  <text decode="{{true}}">离职原因</text>
+                </view>
+              </view>
+              <view class='itemIptBox'>
+                <view class='itemIpt itemIptLine'>
+                  <input wx:if="{{!replaceSwitch}}" focus="{{leaveResionFocus}}" class='itemIptVal' name="leaveReasion" 
+                  data-name="dimissionReason" disabled="{{disabled}}" bindinput="bindKeyInput" bindblur="leaveResBlur" type='text' 
+                  value="{{candidate.dimissionReason?candidate.dimissionReason:leaveReasion}}" placeholder='上家离职原因' />
+                  <view wx:if="{{replaceSwitch}}" id='leaveReasion' bindtap='iptReplaceClick' class='iptReplace'>
+                  {{leaveReasion.length===0?'上家离职原因':leaveReasion}}
+                  </view>
+                </view>
+              </view>
+            </view>
+
+          </view>
+
+        </view>
+
+        <view class='baseInfoBtnBox' wx:if="{{editState==='formEdit'?true:false}}">
+          <button class='baseInfoBtn' formType="submit">保存基本信息</button>
+        </view>
+        <view class='baseInfoBtnBox' wx:if="{{editState==='formDisabled'?true:false}}">
+          <button class='modifyBtn' bindtap='modifyClick'>修改基本信息</button>
+        </view>
+
+      </form>
+    </view>
+  </view>
+
+</view>
+
+<!--  -->
+<!-- <view class='tabbar'>
+  <view class='tabbarItem' data-linkpage="toindex" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/indexIcon.png"></image>
+    </view>
+    <view class='tabbarText'>首页</view>
+  </view>
+  <view class='tabbarItem' data-linkpage="tomine" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/mine.png"></image>
+    </view>
+    <view class='tabbarText'>我的</view>
+  </view>
+</view> -->
+<!--覆盖层  -->
+<view class='bgCover' wx:if="{{bgCoverShow}}">
+  <view class='bgCoverCnt'>
+    <view class='phoneAccessText'>需要您的授权以进行登录</view>
+    <view><button class='phoneBtn' open-type="getPhoneNumber" bindgetphonenumber="onGetphonenumber">授权</button></view>
+  </view>
+</view>
+
+<!-- <view class='tiaoshi'>{{tiaoshidata}}</view> -->

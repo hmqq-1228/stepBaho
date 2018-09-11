@@ -1,0 +1,34 @@
+<!--pages/mine/mine.wxml-->
+<view class='main' animation="{{animationData}}" style="opacity:0">
+  <view class='logoBox' bindtap='testmodal'>
+    <image class='logo' src="{{imgBaseUrl}}/images/bahologo.png" mode='widthFix'></image>
+  </view>
+
+  <view class='content'>
+    <view class='mineNav' bindtap='toInterview'>
+      <image class='mineNavPic' mode='aspectFit' src="{{imgBaseUrl}}/images/interviewBanner.png"></image>
+    </view>
+    <view class='mineNav' bindtap='toNewentry'>
+      <image class='mineNavPic' mode='aspectFit' src="{{imgBaseUrl}}/images/entrybanner.jpg"></image>
+    </view>
+
+    <view class='netswitch' bindtap='toNetSwitch'>{{baseUrl}}</view>
+
+  </view>
+
+</view>
+
+<view class='tabbar'>
+  <view class='tabbarItem' data-linkpage="toindex" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/indexIcon.png"></image>
+    </view>
+    <view class='tabbarText'>首页</view>
+  </view>
+  <view class='tabbarItem' data-linkpage="tomine" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/mine.png"></image>
+    </view>
+    <view class='tabbarText'>我的</view>
+  </view>
+</view>

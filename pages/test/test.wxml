@@ -1,0 +1,45 @@
+<!--pages/test/test.wxml-->
+<!-- <web-view src="http://product.m.dangdang.com/product.php?pid=25156888&host=product.dangdang.com"></web-view> -->
+<text>pages/test/test.wxml</text>
+<view class='testview'hover-class="hoverClass" hover-start-time="{{2000}}" hover-stay-time="{{3000}}" bindtap='testViewTap'>test</view>
+<scroll-view class='scrollbox' scroll-y="{{true}}">
+  <view class='viewCnt'>123456</view>
+</scroll-view>
+
+<!--可移动区域  -->
+<movable-area class="movearea">
+  <movable-view direction="all" out-of-bounds="false" damping="50" class='moveview'></movable-view>
+</movable-area>
+
+<!--视频 videoSrc  -->
+<!-- <video src="http://www.abcjava.com/media/testVideo.mp4" controls custom-cache="{{false}}" ></video> -->
+
+<!-- <video src="{{videoSrc}}" controls custom-cache="{{false}}" ></video>
+
+
+ -->
+
+  <view class="page-section tc">
+    <video id="myVideo" src="http://www.abcjava.com/media/testVideo.mp4" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
+
+    <view class="weui-cells">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">弹幕内容</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input bindblur="bindInputBlur" class="weui-input" type="text" placeholder="在此处输入弹幕内容" />
+        </view>
+      </view>
+    </view>
+    <view class="btn-area">
+      <button bindtap="bindSendDanmu" class="page-body-button" type="primary" formType="submit">发送弹幕</button>
+      <button bindtap="bindPlay" class="page-body-button" type="primary">播放</button>
+      <button bindtap="bindPause" class="page-body-button" type="primary">暂停</button>
+    </view>
+  </view>
+  <view>---------------------------------------------</view>
+  <view class='myheartBox'>
+    <view class='myheart' bindtap='clickLike'></view>
+    <view class='myheartGo' animation="{{animationData}}" bindtap='clickLike'></view>
+  </view>

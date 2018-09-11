@@ -1,0 +1,124 @@
+<!--pages/urgent/urgent.wxml-->
+<view class='main' animation="{{animationData}}" style="opacity:0">
+  <!-- 进度 -->
+  <view class='progressBox'  wx:if="{{!newProgressShow}}">
+    <view class='bg_ball_Box'>
+      <view class='bgLineBox'>
+        <view class="bgLineItem {{item.status?'active':''}}" wx:if="{{index===0 || item.pageType > ptype?false:true}}" wx:key="item.pageName" wx:for="{{progressData}}"></view>
+      </view>
+      <view class='ballBox'>
+        <view class="ballItem {{item.status?'active':''}}" wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" wx:key="item.pageName" bindtap="ballClick" wx:for="{{progressData}}">
+          <view class="ballDot {{item.current?'active':''}}"></view>
+        </view>
+      </view>
+      <view class='ballItemTextBox'>
+        <view class='ballText' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick" wx:key="item.pageName" wx:for="{{progressData}}">{{item.proName}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 新的进度条 -->
+  <view class='newProgress' wx:if="{{newProgressShow}}">
+    <swiper class='myswiper' display-multiple-items="{{swiperDisNum}}" current="{{crtSwpIndex}}"
+      indicator-dots="{{indicatorDots}}" circular="{{circular}}" vertical="{{vertical}}">
+      <block wx:for="{{progressData}}" wx:key="{{item.pageName}}" wx:if="{{item.pageType <= ptype?true:false}}">
+        <swiper-item class="swiperItem">
+
+          <view class='bgLineBox2'>
+            <view class="bgLineItem2 {{item.status?'active':''}}"></view>
+          </view>
+
+          <view class="ballItem2 {{item.status?'active':''}}" data-pagename="{{item.pageName}}" bindtap="ballClick">
+            <view class="ballDot {{item.current?'active':''}}"></view>
+          </view>
+
+          <view class='ballText2' wx:if="{{item.pageType <= ptype?true:false}}" data-pagename="{{item.pageName}}" bindtap="ballClick">{{item.proName}}</view>
+          <!-- <view>{{item.cnt}}</view> -->
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 新的进度条结束 --> 
+
+  <view class='logoBox' bindtap='testmodal'>
+    <image class='logo' src="{{imgBaseUrl}}/images/bahologo.png" mode='widthFix'></image>
+  </view>
+
+  <view class='content'>
+    <form bindsubmit="formSubmit">
+      <view class='itemBox'>
+
+        <!--紧急联络人  -->
+          <view class="{{'eduPro ' + urgentContact[0].iniclass}}"> 
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntTit schoolTit'>姓名</view>
+              <view class='eduProItemCntVal schoolVal'>
+                <input class='schoolIptVal' name="name" disabled="{{urgentContact[0].disabled}}" value="{{urgentContact[0].name}}" bindinput='nameInput' placeholder='请输入' />
+              </view>
+            </view>
+          </view>
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntLine'>
+                <view class='eduProItemCntTit line'>亲属关系</view>
+                <view class='eduProItemCntVal'>
+                   <input class='eduipt' name="relational" disabled="{{urgentContact[0].disabled}}" value="{{urgentContact[0].relational}}" bindinput='relationalInput' placeholder='请输入' /> 
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntLine'>
+                <view class='eduProItemCntTit line'>联系电话</view>
+                <view class='eduProItemCntVal'>
+                   <input class='eduipt' name="mobile" disabled="{{urgentContact[0].disabled}}" value="{{urgentContact[0].mobile}}" bindinput='mobileInput' type='digit' maxlength="11" placeholder='请输入' /> 
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <view class='eduProItem'>
+            <view class='eduProItemCnt'>
+              <view class='eduProItemCntLine'>
+                <view class='eduProItemCntTit line'>联系地址</view>
+                <view class='eduProItemCntVal'>
+                   <input class='eduipt' name="address" disabled="{{urgentContact[0].disabled}}" value="{{urgentContact[0].address}}" bindinput='addressInput' placeholder='请输入' /> 
+                </view>
+              </view>
+            </view>
+          </view>
+
+        </view>
+
+      </view>
+
+      <view class='subBtnBox' wx:if="{{!subDisabled}}">
+        <button class='subBtn' formType="submit">保存紧急联系人</button>
+      </view>
+      <view class='subBtnBox' wx:if="{{subDisabled}}">
+        <button class='subBtn' bindtap='changeContact'>更改紧急联系人</button>
+      </view>
+    </form>
+
+  </view>
+
+
+</view>
+
+
+<!-- <view class='tabbar'>
+  <view class='tabbarItem' data-linkpage="toindex" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/indexIcon.png"></image>
+    </view>
+    <view class='tabbarText'>首页</view>
+  </view>
+  <view class='tabbarItem' data-linkpage="tomine" bindtap='bottomNavClick'>
+    <view class='tabbarIcon'>
+      <image class='tabIconPic' mode='aspectFit' src="{{imgBaseUrl}}/images/mine.png"></image>
+    </view>
+    <view class='tabbarText'>我的</view>
+  </view>
+</view> -->

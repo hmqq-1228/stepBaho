@@ -1,0 +1,139 @@
+/**index.wxss**/
+Page{
+  height: 100%;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bahologo{
+  width: 300rpx;
+  margin: 0 auto;
+}
+.bahologoPic{
+  width: 300rpx;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+.user-motto{
+  margin-bottom: 50rpx;
+  color: #0D386B;
+  border-radius: 15rpx;
+  padding: 10rpx 20rpx;
+  font-size: 30rpx;
+  border: 1rpx solid #0D386B;
+}
+/* 启动页面 */
+.startSwiperWrap{
+  width: 100%;
+  height: 100%;
+}
+.startSwiper{
+  width: 100%;
+  height: 100%;
+}
+.swiperpic{
+  width: 100%;
+  height: 100%;
+}
+.startSwiperBtnBox{
+  text-align: center;
+  width: 200rpx;
+  position: absolute;
+  left: 50%;
+  bottom: 300rpx;
+  margin-left: -100rpx;
+}
+.testPic{
+  width: 250rpx;
+  _height: 50rpx;
+  position: absolute;
+  top: 0;
+  right: 0rpx;
+}
+.qiqiuBox{
+  width: 250rpx;
+}
+
+/* .tabbar{
+  width: 100%;
+  font-size: 22rpx;
+  padding: 15rpx 0;
+  border-top: 1rpx solid #eee;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content:space-around;
+}
+.tabIconPic{
+  width: 50rpx;
+  height: 50rpx;
+}
+.tabbarText{
+  text-align: center;
+} */
+
+.bgCover{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+  padding-top: 300rpx;
+  z-index: 9999999;
+}
+.bgCoverCnt{
+  font-size: 26rpx;
+  width: 400rpx;
+  padding: 80rpx;
+  background-color: #fff;
+  border: 1rpx solid #eee;
+  border-radius: 10rpx;
+  margin: 0 auto;
+}
+.phoneAccessText{
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.phoneBtn{
+  color: #fff;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  width: 150rpx;
+  background-color: #0aa49c;
+}
+
+/* pagePwd 页面密码 */
+.pagePwd{
+  width: 100%;
+  height: 600rpx;
+  _border: 1rpx solid #eee;
+  position: fixed;
+  top: 120rpx;
+  left: 0;
+}
+.pagePwdItem{
+  width: 33%;
+  height: 200rpx;
+  _border: 1rpx solid #fff;
+  box-sizing: border-box;
+  float: left;
+}
+

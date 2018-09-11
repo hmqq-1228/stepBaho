@@ -1,0 +1,19 @@
+.tabbar{
+  width: 100%;
+  font-size: 22rpx;
+  padding: 15rpx 0;
+  background-color: #fff;
+  border-top: 1rpx solid #eee;
+  position: fixed;
+  bottom: 400rpx;
+  left: 0;
+  display: flex;
+  justify-content:space-around;
+}
+.tabIconPic{
+  width: 45rpx;
+  height: 45rpx;
+}
+.tabbarText{
+  text-align: center;
+}

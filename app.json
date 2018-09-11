@@ -1,0 +1,25 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/mianBaseInfo/mianBaseInfo",
+    "pages/entryBaseInfo/entryBaseInfo",
+    "pages/extraBaseInfo/extraBaseInfo",
+    "pages/education/education",
+    "pages/work/work",
+    "pages/train/train",
+    "pages/family/family",
+    "pages/careerplan/careerplan",
+    "pages/urgent/urgent",
+    "pages/beforeUnits/beforeUnits",
+    "pages/healthStatus/healthStatus",
+    "pages/mine/mine",
+    "pages/logs/logs",
+    "pages/test/test"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "步入豪门",
+    "navigationBarTextStyle":"black"
+  }
+}
