@@ -69,9 +69,10 @@ App({
     // baseUrl: 'http://10.0.5.29:8080'
     // 10.0.5.145
     // 外网
-    baseUrl: 'https://srm.baho.cn/employeeSelfService_war',
+    // baseUrl: 'https://srm.baho.cn/employeeSelfService_war',
     imgBaseUrl: 'https://srm.baho.cn',
     // 内网测试环境
+    baseUrl: 'http://gsh.vaiwan.com:8081',
     //baseUrl: 'http://ak47.vaiwan.com/employee',
     // baseUrl: 'http://10.0.5.145:8088',
     // 10.0.5.145:8088
