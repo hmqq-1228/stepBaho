@@ -470,5 +470,5 @@ Page({
   // 底部导航 点击
   bottomNavClick: function (e) {
     getApp().bottomNavLink(e)
-  },
+  }
 })
