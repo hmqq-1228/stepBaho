@@ -56,7 +56,7 @@ Page{
   width: 200rpx;
   position: absolute;
   left: 50%;
-  bottom: 300rpx;
+  bottom: 40%;
   margin-left: -100rpx;
 }
 .testPic{
